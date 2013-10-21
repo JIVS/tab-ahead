@@ -6,6 +6,8 @@ module.exports = (grunt) ->
         dist: 'dist'
         test: 'test'
 
+
+
     # Show elapsed time at the end.
     if grunt.option 'timing'
         (require 'time-grunt') grunt
@@ -103,6 +105,31 @@ module.exports = (grunt) ->
                 autoWatch: false
                 background: true
                 singleRun: false
+
+        gitclone:
+            cssRatiocinator:
+                options:
+                    branch: 'master'
+                    repository: 'https://github.com/begriffs/css-ratiocinator.git'
+                    directory: 'util/css-ratiocinator'
+
+        shell:
+            options:
+                stdout: true
+                stderr: true
+                failOnError: true
+                execOptions:
+                    cwd: 'util/css-ratiocinator'
+            trashcss:
+                command: [
+                    'node'
+                    '../../node_modules/phantomjs/bin/phantomjs'
+                    'ratiocinate.js'
+                    '../../app/options.html'
+                    '>'
+                    '../../dist/styles/options.css'
+                ].join ' '
+
 
         useminPrepare:
             options:
